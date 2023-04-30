@@ -24,9 +24,13 @@ const SavedBooks = () => {
   const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
+    console.log(bookId)
+
     if (!token) {
       return false;
     }
+
+    console.log(bookId)
 
     try {
       const { data } = await removeBook({
@@ -37,6 +41,8 @@ const SavedBooks = () => {
     } catch (err) {
       console.error(err);
     }
+
+    console.log(bookId)
   };
 
   // if data isn't here yet, say so

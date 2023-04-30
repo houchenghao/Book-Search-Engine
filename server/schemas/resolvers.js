@@ -1,4 +1,4 @@
-const { AuthenticationError} = require('apollo-server-express');
+const { AuthenticationError } = require("apollo-server-express");
 // import user model
 const { User } = require('../models');
 // import sign token function from auth
@@ -36,8 +36,8 @@ const resolvers = {
       return { token, user };
     },
 
-    addUser: async(parent, {username, email, password}) => {
-      const user = await User.create({ username, email, password });
+    addUser: async(parent, args) => {
+      const user = await User.create(args);
       const token = signToken(user);
       return { token, user };
     },
@@ -46,7 +46,7 @@ const resolvers = {
       if(context.user){
         const updateUser = await User.findOneAndUpdate(
           {_id: context.user._id},
-          {$addToSet: {savedBooks:{input}}},
+          {$addToSet: {savedBooks: input}},
           {
             new: true,
             // runValidators: true,
